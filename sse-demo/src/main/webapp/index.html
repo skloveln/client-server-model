@@ -1,0 +1,42 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div id="show">显示</div>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    if(typeof(EventSource) !== "undefined"){
+        var source = new EventSource('/push.do');
+        var s = '';
+
+        // 每次请求都会执行
+        source.addEventListener('message', function (e) {
+            console.log("message->服务器发送给客户端的数据为:" + e.data);
+            s += e.data + "<br/>";
+            $('#show').html(s);
+        });
+
+        // 每次请求都会执行
+        source.addEventListener('open', function (e) {
+            console.log("open->和服务器建立连接");
+        });
+
+        //处理服务器响应报文中的load事件
+        source.addEventListener("load",function(e){
+            console.log("load->处理服务器响应报文中的load事件");
+        });
+
+        // 每次请求都会执行
+        source.addEventListener('error', function (e) {
+            console.log("error->发生错误");
+        });
+    }else {
+        alert("你的浏览器不支持SSE.");
+    }
+</script>
+
+</body>
+</html>
