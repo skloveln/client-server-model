@@ -1,6 +1,7 @@
 package com.github;
 
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -48,7 +49,6 @@ public class WebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         System.out.println("接受到的消息：  " + message);
-        //群发消息
         try {
             sendMessage(message, session);
         }catch (Exception e){
